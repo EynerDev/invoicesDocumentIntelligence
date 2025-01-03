@@ -31,8 +31,9 @@ Asegúrate de que los usuarios tengan instalados los siguientes requisitos para 
    git clone https://github.com/EynerDev/invoicesDocumentIntelligence.git
 
 2.Intala las dependencias
-  ```python
-  pip install -r requirements.txt
+  ```bash
+  pip install requirements.txt
+
 
 
 
