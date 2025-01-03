@@ -25,13 +25,13 @@ def upload_blob():
     try:
         # Llamar al servicio para subir el archivo a Azure
         file_url = storage_service.upload_file_to_azure(file_data)
-        data = {
-                "type_id": 1,
-                "provider_id": 1,
-                "path_storage": file_url
-            }
+        # data = {
+        #         "type_id": 1,
+        #         "provider_id": 1,
+        #         "path_storage": file_url
+        #     }
         
-        invoices_service.agregar_factura(data)
+        # invoices_service.agregar_factura(data)
         return jsonify({"message": "File uploaded successfully", "url": file_url}), 200
     except Exception as e:
         return jsonify({"error": f"Error uploading file: {str(e)}"}), 500
