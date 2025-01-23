@@ -2,6 +2,7 @@ from azure.storage.blob import BlobServiceClient, BlobSasPermissions, generate_b
 from azure.core.exceptions import ResourceExistsError
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+from services.invoice_service import InvoiceService
 import os
 import base64
 import time
@@ -16,6 +17,7 @@ class StorageService:
         if not self.connection_string:
             raise ValueError("La cadena de conexión no está definida en el archivo .env")
 
+        
         # Crear un cliente del servicio de blobs
         self.blob_service_client = BlobServiceClient.from_connection_string(self.connection_string)
 
@@ -32,35 +34,48 @@ class StorageService:
         except Exception as e:
             raise Exception(f"Error al crear o acceder al contenedor: {str(e)}")
 
-    import base64
-
-
     def upload_file_to_azure(self, file_data):
-        # Decodificar el archivo Base64
         try:
+            # Verificar que los parámetros necesarios estén en los datos
+            
+            if not file_data:
+                raise ValueError("Faltan parámetros necesarios: 'file_data', 'type_id' o 'provider_id'")
+
+            # Decodificar el archivo Base64
             decoded_file = base64.b64decode(file_data)
-        except Exception as e:
-            raise ValueError(f"Error decodificando el archivo: {str(e)}")
 
-        # Crear un nombre único para el archivo en el contenedor
-        blob_name = f"factura_{int(time.time())}.pdf"
+            # Crear un nombre único para el archivo en el contenedor
+            blob_name = f"factura_{int(time.time())}.pdf"
 
-        # Crear el cliente del blob
-        blob_client = self.container_client.get_blob_client(blob_name)
+            # Crear el cliente del blob
+            blob_client = self.container_client.get_blob_client(blob_name)
 
-        # Subir el archivo decodificado al contenedor de Azure
-        try:
+            # Subir el archivo decodificado al contenedor de Azure
             blob_client.upload_blob(decoded_file, overwrite=True)
             print(f"Archivo subido con éxito: {blob_name}")
-            
+
             # Generar y devolver la URL con SAS
             account_name = self.blob_service_client.account_name
             blob_url, sas_token = self.generate_token_sas(account_name, blob_name)
-            return {"url_blob" : blob_client.url ,
-                    "blob_url_sas": blob_url, 
-                    "sas_token": sas_token}
+
+            # Preparar los datos para registrar la factura en la base de datos
+            
+
+            # Llamar al servicio de facturas para agregar la factura a la base de datos
+            invoice_service = InvoiceService()
+            result = invoice_service.agregar_factura(type_id = 1, provider_id = 1,path_storage = blob_url, name_invoice = blob_name, blob_sas = sas_token)
+
+            # Retornar la respuesta final
+            return {
+                "result": result,
+                "url_blob": blob_client.url,
+                "blob_url_sas": blob_url,
+                "blob_name" : blob_name,
+                "sas_token": sas_token
+            }
+
         except Exception as e:
-            raise Exception(f"Error subiendo el archivo a Azure: {str(e)}")
+            raise Exception(f"Error al subir o procesar el archivo: {str(e)}")
 
     def generate_token_sas(self, storage_account_name, blob_name):
         # Extraer el account key desde la cadena de conexión
@@ -82,3 +97,14 @@ class StorageService:
         # Construir la URL completa del blob con el token SAS
         blob_url = f"https://{storage_account_name}.blob.core.windows.net/{self.container_name}/{blob_name}?{sas_token}"
         return blob_url, sas_token
+
+    def list_blobs(self):
+        blobs_name = []
+        
+        try:
+            blobs = container_client.list_blobs()
+            blobs_name = [blobs.name for blob in blobs]
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            
+        return blobs_name
