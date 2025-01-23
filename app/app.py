@@ -5,7 +5,7 @@ from controllers.invoices_controller import factura_bp
 app = Flask(__name__)
 
 # Registrar los blueprints (módulos de controladores)
-app.register_blueprint(factura_bp, url_prefix='/api')
+app.register_blueprint(factura_bp, url_prefix='/api/factura')
 
 if __name__ == '__main__':
     app.run(debug=True)
