@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, DateTime, Integer, BigInteger
-from Database.conn import Base
+from database.conn import Base
 from sqlalchemy.sql.functions import current_timestamp
 
 
-class ProgramsModel(Base):
+class InvoiceDetailsModels(Base):
 
     __tablename__ = "invoices_details"
 
@@ -18,11 +18,13 @@ class ProgramsModel(Base):
     suspension_date = Column(String(150), nullable=False)
     overdue_invoices = Column(String(150), nullable=False)
     total_overdue_debt = Column(String(150), nullable=False)
-    total_invoice_month = Column(String(150), nullable=False)
+    total_invoices_month = Column(String(150), nullable=False)
     active = Column(Integer, nullable=True, default=1)
     created_at = Column(DateTime, default=current_timestamp())
     updated_at = Column(DateTime, default=current_timestamp(),
                         onupdate=current_timestamp())
+    number_contract = Column(String(150), nullable=False)
+    
 
     def __init__(self, data):
         self.id = data.get('id').upper()
@@ -41,7 +43,8 @@ class ProgramsModel(Base):
             "suspension_date": self.suspension_date,
             "overdue_invoices": self.overdue_invoices,
             "total_overdue_debt": self.total_overdue_debt,
-            "total_invoice_month": self.total_invoice_month,
+            "total_invoice_month": self.total_invoices_month,
             "active": self.active
+            
 
         }

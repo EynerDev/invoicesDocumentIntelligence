@@ -6,6 +6,7 @@ from services.invoice_service import InvoiceService
 import os
 import base64
 import time
+import json
 
 # Cargar las variables de entorno desde un archivo .env
 load_dotenv()
@@ -98,13 +99,22 @@ class StorageService:
         blob_url = f"https://{storage_account_name}.blob.core.windows.net/{self.container_name}/{blob_name}?{sas_token}"
         return blob_url, sas_token
 
-    def list_blobs(self):
-        blobs_name = []
-        
+    def list_blobs(self):        
         try:
-            blobs = container_client.list_blobs()
-            blobs_name = [blobs.name for blob in blobs]
+            blobs = self.container_client.list_blobs()
+            print(blobs)
+            for blob in blobs:
+                blob_client = self.container_client.get_blob_client(blob.name)
+
+                blobs_info =  {
+                    "name": blob.name,
+                    "blob_type": blob.blob_type,
+                    "blob_url" : blob_client.url
+                }     
+                       
+            if not blobs_info:
+                print("No hay blobs en el contenedor")
         except Exception as e:
             print(f"An error occurred: {e}")
             
-        return blobs_name
+        return blobs_info

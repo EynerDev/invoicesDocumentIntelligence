@@ -1,5 +1,7 @@
 from Models.invoicesModel import InvoicesModel
+from Models.invoicesDetailModel import InvoiceDetailsModels
 from database.conn import session
+import json
 
 class InvoiceService:
     
@@ -35,12 +37,12 @@ class InvoiceService:
         try:
             # Crear la nueva factura, pasando los datos necesarios
             new_invoice = InvoicesModel(
-                            type_id = type_id,
-                            provider_id = provider_id ,
-                            path_storage = path_storage,
-                            blob_sas = blob_sas,
-                            name_invoice = name_invoice,
-                            )  # Asegúrate de que los campos de 'data' coinciden con el modelo
+                        type_id = type_id,
+                        provider_id = provider_id ,
+                        path_storage = path_storage,
+                        blob_sas = blob_sas,
+                        name_invoice = name_invoice,
+            )  # Asegúrate de que los campos de 'data' coinciden con el modelo
             session.add(new_invoice)
             session.commit()
             
@@ -48,6 +50,7 @@ class InvoiceService:
                 "msg": "Factura cargada en la base de datos de manera exitosa",
                 "statusCode": 200
             }
+            
         except Exception as e:
             session.rollback()  # Revertir cualquier cambio en caso de error
             return {
@@ -56,29 +59,38 @@ class InvoiceService:
             }
 
 
-    # @staticmethod
-    # def agregar_factura(type_id, provider_id, path_storage,blob_sas, name_invoice ):
-    #     try:
-    #         logging.info("Creando nueva factura...")
-    #         new_invoice = InvoicesModel(
-    #             type_id=type_id,
-    #             provider_id=provider_id,
-    #             path_storage=path_storage,
-    #             blob_sas=blob_sas,
-    #             name_invoice=name_invoice
-    #         )
-    #         logging.info(f"Factura creada: {new_invoice}")
+    @staticmethod
+    def list_detail_invoice(id_invoice):
+        try:  
+            validate_invoice_active_id = validate_invoice_active(id_invoice)
+            if not validate_invoice_active_id:
+                raise AssertionError("¡ERROR! no fue encontrada una factura con ese ID")
             
-    #         session.add(new_invoice)
-    #         session.commit()
+            facturas_details = session.query(InvoiceDetailsModels).filter(
+                InvoiceDetailsModels.id_invoice == id_invoice,
+                InvoiceDetailsModels.active == 1
+            ).all()
             
-    #         return {
-    #             "msg": "Factura cargada en la base de datos de manera exitosa",
-    #             "statusCode": 200
-    #         }
-    #     except Exception as e:
-    #         logging.error(f"Error al agregar la factura: {e}")
-    #         return {
-    #             "msg": f"Error al agregar la factura: {e}",
-    #             "statusCode": 500
-    #         }
+            return {
+                "msg": "Informacion de Factura",
+                "data" : [factura.__repr__() for factura in facturas_details],
+                "statusCode": 200
+            }
+            
+        except Exception as e:         
+            return {
+                "msg": f"Error al cargar los datos de la factura: {e}",
+                "statusCode": 500
+            }
+            
+@staticmethod
+def validate_invoice_active(id_invoice):
+    try:
+        active = session.query(InvoicesModel).filter(
+            InvoicesModel.id == id_invoice,
+            InvoicesModel.active == 1
+                
+        ).all()
+        return active
+    except Exception as e:
+        return False
