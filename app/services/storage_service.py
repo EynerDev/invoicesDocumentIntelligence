@@ -88,9 +88,9 @@ class StorageService:
         # Generar el token SAS para un blob específico
         sas_token = generate_blob_sas(
             account_name=storage_account_name,
-            account_key=account_key,
             container_name=self.container_name,
             blob_name=blob_name,
+            account_key=account_key,
             permission=BlobSasPermissions(read=True),
             expiry=sas_expiry
         )

@@ -1,5 +1,6 @@
 from Models.invoicesModel import InvoicesModel
 from Models.invoicesDetailModel import InvoiceDetailsModels
+from services.recognizerService import DocumentIntelligence
 from database.conn import session
 import json
 
@@ -36,6 +37,9 @@ class InvoiceService:
     def agregar_factura(type_id, provider_id, path_storage,  blob_sas ,name_invoice):
         try:
             # Crear la nueva factura, pasando los datos necesarios
+            ReconizerService = DocumentIntelligence()
+            
+            ReconizerService.analyze_invoice(path_storage)
             new_invoice = InvoicesModel(
                         type_id = type_id,
                         provider_id = provider_id ,
