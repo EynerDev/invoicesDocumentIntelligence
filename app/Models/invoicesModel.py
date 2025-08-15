@@ -25,7 +25,7 @@ class InvoicesModel(Base):
         self.provider_id = provider_id
         self.path_storage = path_storage
         self.active = 1  # Por defecto el valor es 1
-        self.blob_sas =   blob_sas
+        self.blob_sas = blob_sas
         self.name_invoice = name_invoice 
     def __repr__(self):
         return {

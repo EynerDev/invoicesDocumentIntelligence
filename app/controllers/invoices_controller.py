@@ -6,7 +6,7 @@ from services.invoice_service import InvoiceService
 factura_bp = Blueprint('factura', __name__)
 
 storage_service = StorageService()
-invoices_service= InvoiceService()
+Invoices_service= InvoiceService()
 
 
 @factura_bp.route('/hola', methods=['GET'])
@@ -18,10 +18,11 @@ def hola():
 def get_invoice():
     
     try:
-        get_invoice_db = invoices_service.obtener_todas_facturas()
-        return jsonify({"message": "Facturas encontradas", "url": get_invoice_db}), 200
+        get_invoice_db = Invoices_service.obtener_todas_facturas()
+        return jsonify({"message": "Facturas encontradas", 
+                        "url": get_invoice_db}), 200
     except Exception as e:
-         return jsonify({"error": f"Error uploading file: {str(e)}"}), 500
+        return jsonify({"error": f"Error uploading file: {str(e)}"}), 500
 
 @factura_bp.route('/upload_invoice', methods=['POST'])
 def upload_blob():

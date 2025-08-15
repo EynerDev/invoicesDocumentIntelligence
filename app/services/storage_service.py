@@ -57,14 +57,23 @@ class StorageService:
 
             # Generar y devolver la URL con SAS
             account_name = self.blob_service_client.account_name
-            blob_url, sas_token = self.generate_token_sas(account_name, blob_name)
+            blob_url, sas_token = self.generate_token_sas(
+                account_name,
+                blob_name
+                )
 
             # Preparar los datos para registrar la factura en la base de datos
             
 
             # Llamar al servicio de facturas para agregar la factura a la base de datos
             invoice_service = InvoiceService()
-            result = invoice_service.agregar_factura(type_id = 1, provider_id = 1,path_storage = blob_url, name_invoice = blob_name, blob_sas = sas_token)
+            result = invoice_service.agregar_factura(
+                type_id=1,
+                provider_id=1,
+                path_storage=blob_url,
+                name_invoice=blob_name,
+                blob_sas=sas_token
+                )
 
             # Retornar la respuesta final
             return {
@@ -99,17 +108,17 @@ class StorageService:
         blob_url = f"https://{storage_account_name}.blob.core.windows.net/{self.container_name}/{blob_name}?{sas_token}"
         return blob_url, sas_token
 
-    def list_blobs(self):        
+    def list_blobs(self):       
         try:
             blobs = self.container_client.list_blobs()
             print(blobs)
             for blob in blobs:
                 blob_client = self.container_client.get_blob_client(blob.name)
 
-                blobs_info =  {
+                blobs_info = {
                     "name": blob.name,
                     "blob_type": blob.blob_type,
-                    "blob_url" : blob_client.url
+                    "blob_url": blob_client.url
                 }     
                        
             if not blobs_info:
