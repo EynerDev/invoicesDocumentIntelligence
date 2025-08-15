@@ -5,13 +5,13 @@ Se expone una API para acceder y consultar la información procesada.
 
 ## Funciones principales:
 
-   Carga de facturas y almacenamiento seguro en la nube
+-  Carga de facturas y almacenamiento seguro en la nube
    
-   Procesamiento automatizado con IA para extraer campos como fecha, total, impuestos, etc.
+- Procesamiento automatizado con IA para extraer campos como fecha, total, impuestos, etc.
    
-   Consulta de facturas procesadas mediante API REST
+- Consulta de facturas procesadas mediante API REST
    
-   Integración completa con el ecosistema de Azure
+- Integración completa con el ecosistema de Azure
 
 ## Tecnologías Usadas
 
