@@ -1,6 +1,17 @@
 # Invoices Intelligence
+Aplicación backend para la automatización del procesamiento de facturas utilizando inteligencia artificial de Azure.
+El sistema recibe facturas en PDF o imagen, las almacena en Azure Blob Storage, procesa su contenido con Azure Document Intelligence para extraer datos clave y los guarda en una base de datos SQL.
+Se expone una API para acceder y consultar la información procesada.
 
-Este proyecto es una API que gestiona el almacenamiento y acceso a facturas utilizando servicios de Azure como Blob Storage, Documment Intelligence para el procesamiento de las facturas, SQL database para el alamacenamiento de datos de las facturas, App service para el almacenamiento del backend."
+## Funciones principales:
+
+   Carga de facturas y almacenamiento seguro en la nube
+   
+   Procesamiento automatizado con IA para extraer campos como fecha, total, impuestos, etc.
+   
+   Consulta de facturas procesadas mediante API REST
+   
+   Integración completa con el ecosistema de Azure
 
 ## Tecnologías Usadas
 
