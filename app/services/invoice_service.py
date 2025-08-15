@@ -62,8 +62,10 @@ class InvoiceService:
     @staticmethod
     def list_detail_invoice(id_invoice):
         try:  
-            validate_invoice_active_id = validate_invoice_active(id_invoice)
-            if not validate_invoice_active_id:
+            print("eyner ")
+            validate_invoice_id = InvoiceService.validate_invoice_active_id(id_invoice)
+            print("eyner no sale")
+            if not validate_invoice_id:
                 raise AssertionError("¡ERROR! no fue encontrada una factura con ese ID")
             
             facturas_details = session.query(InvoiceDetailsModels).filter(
@@ -83,14 +85,15 @@ class InvoiceService:
                 "statusCode": 500
             }
             
-@staticmethod
-def validate_invoice_active(id_invoice):
-    try:
-        active = session.query(InvoicesModel).filter(
-            InvoicesModel.id == id_invoice,
-            InvoicesModel.active == 1
-                
-        ).all()
-        return active
-    except Exception as e:
-        return False
+    @staticmethod
+    def validate_invoice_active_id(id_invoice):
+        print("eyner no sale la funcion")
+        try:
+            active = session.query(InvoicesModel).filter(
+                InvoicesModel.id == id_invoice,
+                InvoicesModel.active == 1
+                    
+            ).all()
+            return active
+        except Exception as e:
+            return False

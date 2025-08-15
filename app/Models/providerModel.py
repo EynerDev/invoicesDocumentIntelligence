@@ -1,9 +1,9 @@
 from sqlalchemy import Column, String, DateTime, Integer, BigInteger
-from Database.conn import Base
+from database.conn import Base
 from sqlalchemy.sql.functions import current_timestamp
 
 
-class ProgramsModel(Base):
+class ProviderModel(Base):
 
     __tablename__ = "provider"
 
@@ -13,7 +13,7 @@ class ProgramsModel(Base):
     email = Column(String(150), nullable=False)
     address = Column(String(150), nullable=False)
     number = Column(String(150), nullable=False)
-    website = Column(String(250), nullable=true)
+    website = Column(String(250), nullable=True)
     active = Column(Integer, nullable=True, default=1)
     created_at = Column(DateTime, default=current_timestamp())
     updated_at = Column(DateTime, default=current_timestamp(),
