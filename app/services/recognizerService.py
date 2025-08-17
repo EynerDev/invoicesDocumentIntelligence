@@ -7,8 +7,7 @@ import os
 # Cargar variables de entorno
 load_dotenv()
 
-class DocumentIntelligence:
-    
+class DocumentIntelligence:  
     @staticmethod
     def get_field_value(fields, key):
         field = fields.get(key)
@@ -24,7 +23,7 @@ class DocumentIntelligence:
     def analyze_invoice(path_url, id_invoice):
         endpoint = os.getenv("ENDPOINT_DOCUMENT_INTELLIGENCE")
         key = os.getenv("KEY_DOCUMENT_INTELLIGENCE")
-
+        modelID  = "ModelGasCaribe"
         if not endpoint or not key:
             raise ValueError(
                 "Debes configurar ENDPOINT_DOCUMENT_INTELLIGENCE y KEY_DOCUMENT_INTELLIGENCE en tu .env"
@@ -36,38 +35,28 @@ class DocumentIntelligence:
         )
 
         poller = client.begin_analyze_document(
-            "prebuilt-invoice", AnalyzeDocumentRequest(url_source=path_url)
+            modelID, AnalyzeDocumentRequest(url_source=path_url)
         )
         result: AnalyzeResult = poller.result()
 
         for invoice in result.documents:
             data = {
-                'vendor_address': DocumentIntelligence.get_field_value(invoice.fields, "VendorAddress"),
-                'vendor_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "VendorAddressRecipient"),
-                'customer_name': DocumentIntelligence.get_field_value(invoice.fields, "CustomerName"),
-                'customer_id': DocumentIntelligence.get_field_value(invoice.fields, "CustomerId"),
-                'customer_address': DocumentIntelligence.get_field_value(invoice.fields, "CustomerAddress"),
-                'customer_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "CustomerAddressRecipient"),
-                'invoice_id': DocumentIntelligence.get_field_value(invoice.fields, "InvoiceId"),
-                'invoice_date': DocumentIntelligence.get_field_value(invoice.fields, "InvoiceDate"),
-                'invoice_total': DocumentIntelligence.get_field_value(invoice.fields, "InvoiceTotal"),
-                'due_date': DocumentIntelligence.get_field_value(invoice.fields, "DueDate"),
-                'purchase_order': DocumentIntelligence.get_field_value(invoice.fields, "PurchaseOrder"),
-                'billing_address': DocumentIntelligence.get_field_value(invoice.fields, "BillingAddress"),
-                'billing_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "BillingAddressRecipient"),
-                'shipping_address': DocumentIntelligence.get_field_value(invoice.fields, "ShippingAddress"),
-                'shipping_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "ShippingAddressRecipient"),
-                'subtotal': DocumentIntelligence.get_field_value(invoice.fields, "SubTotal"),
-                'total_tax': DocumentIntelligence.get_field_value(invoice.fields, "TotalTax"),
-                'previous_unpaid_balance': DocumentIntelligence.get_field_value(invoice.fields, "PreviousUnpaidBalance"),
-                'amount_due': DocumentIntelligence.get_field_value(invoice.fields, "AmountDue"),
-                'service_start_date': DocumentIntelligence.get_field_value(invoice.fields, "ServiceStartDate"),
-                'service_end_date': DocumentIntelligence.get_field_value(invoice.fields, "ServiceEndDate"),
-                'service_address': DocumentIntelligence.get_field_value(invoice.fields, "ServiceAddress"),
-                'service_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "ServiceAddressRecipient"),
-                'remittance_address': DocumentIntelligence.get_field_value(invoice.fields, "RemittanceAddress"),
-                'remittance_address_recipient': DocumentIntelligence.get_field_value(invoice.fields, "RemittanceAddressRecipient"),
-                'numero_contrato': DocumentIntelligence.get_field_value(invoice.fields, "Contrato"),
+                'Proveedor': DocumentIntelligence.get_field_value(invoice.fields, "ProovedorServicio"),
+                'Nit_proveedor': DocumentIntelligence.get_field_value(invoice.fields, "NitProveedor"),
+                'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
+                'Ciudad_O_Municipio': DocumentIntelligence.get_field_value(invoice.fields, "Ciudadobarrio"),
+                'Direccion_Residencia': DocumentIntelligence.get_field_value(invoice.fields, "DirecionResidencia"),
+                'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
+                'Valor_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "ValorUltimoPago"),
+                'Total_A_Pagar': DocumentIntelligence.get_field_value(invoice.fields, "Total_pagar"),
+                'Fecha_Limite_pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaLimitePago"),
+                'Fecha_Emision_factura': DocumentIntelligence.get_field_value(invoice.fields, "FechaEmisionFactura"),
+                'Subtotal': DocumentIntelligence.get_field_value(invoice.fields, "Subtotal"),
+                'Deuda': DocumentIntelligence.get_field_value(invoice.fields, "Deuda"),
+                'N° Contrato': DocumentIntelligence.get_field_value(invoice.fields, "#Contrato"),
+                'Mes_Facturaacion': DocumentIntelligence.get_field_value(invoice.fields, "MesFacturacion"),
+                'Numero_Factura': DocumentIntelligence.get_field_value(invoice.fields, "NumeroFactura"),
+                'Cupon_Pago': DocumentIntelligence.get_field_value(invoice.fields, "CuponPago")
             }
 
         return {

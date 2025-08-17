@@ -52,7 +52,10 @@ class InvoiceService:
             session.commit()
 
             id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
-            ReconizerService.analyze_invoice(path_storage, id_invoice)
+            result = ReconizerService.analyze_invoice(path_storage, id_invoice)
+        
+            print("esta es la data de la factura", result["invoice_data"])
+            print("este es el id de la factura", result["invoice_id"])
 
             return {
                 "msg": "Factura cargada en la base de datos de manera exitosa",
