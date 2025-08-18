@@ -1,6 +1,7 @@
 from Models.invoicesModel import InvoicesModel
 from Models.invoicesDetailModel import InvoiceDetailsModels
 from services.recognizerService import DocumentIntelligence
+from services.invoice_details_service import DetailsDocumentIntelligence
 from database.conn import session
 import json
 
@@ -39,6 +40,7 @@ class InvoiceService:
         try:
             # Crear la nueva factura, pasando los datos necesarios
             ReconizerService = DocumentIntelligence()
+            InvoiceDetailsService = DetailsDocumentIntelligence()
 
             new_invoice = InvoicesModel(
                 type_id=type_id,
@@ -53,7 +55,12 @@ class InvoiceService:
 
             id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
             result = ReconizerService.analyze_invoice(path_storage, id_invoice)
-        
+             
+            data = result["invoice_data"]
+            id = result["invoice_id"]
+             
+            detalles = InvoiceDetailsService.agregar_detalle_factura(data, id)
+            
             print("esta es la data de la factura", result["invoice_data"])
             print("este es el id de la factura", result["invoice_id"])
 
@@ -86,9 +93,7 @@ class InvoiceService:
     @staticmethod
     def list_detail_invoice(id_invoice):
         try:
-            print("eyner ")
             validate_invoice_id = InvoiceService.validate_invoice_active_id(id_invoice)
-            print("eyner no sale")
             if not validate_invoice_id:
                 raise AssertionError("¡ERROR! no fue encontrada una factura con ese ID")
 
@@ -96,22 +101,27 @@ class InvoiceService:
                 InvoiceDetailsModels.id_invoice == id_invoice,
                 InvoiceDetailsModels.active == 1
             ).all()
-
-            return {
-                "msg": "Informacion de Factura",
-                "data": [factura.__repr__() for factura in facturas_details],
-                "statusCode": 200
-            }
+            
+            if not facturas_details:
+                return {
+                    "message": "No existen detalles registrados con este id de factura",
+                    "statusCode": 200
+                }
+            else:
+                return {
+                    "message": "Informacion de Factura",
+                    "data": [factura.__repr__() for factura in facturas_details],
+                    "statusCode": 200
+                }
 
         except Exception as e:
             return {
-                "msg": f"Error al cargar los datos de la factura: {e}",
+                "message": f"Error al cargar los datos de la factura: {e}",
                 "statusCode": 500
             }
 
     @staticmethod
     def validate_invoice_active_id(id_invoice):
-        print("eyner no sale la funcion")
         try:
             active = session.query(InvoicesModel).filter(
                 InvoicesModel.id == id_invoice,

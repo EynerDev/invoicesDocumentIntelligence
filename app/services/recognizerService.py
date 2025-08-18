@@ -12,7 +12,7 @@ class DocumentIntelligence:
     def get_field_value(fields, key):
         field = fields.get(key)
         if not field:
-            return None
+            return ""
         if hasattr(field, "value") and field.value is not None:
             return field.value
         if hasattr(field, "content") and field.content:
@@ -44,7 +44,6 @@ class DocumentIntelligence:
                 'Proveedor': DocumentIntelligence.get_field_value(invoice.fields, "ProovedorServicio"),
                 'Nit_proveedor': DocumentIntelligence.get_field_value(invoice.fields, "NitProveedor"),
                 'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
-                'Ciudad_O_Municipio': DocumentIntelligence.get_field_value(invoice.fields, "Ciudadobarrio"),
                 'Direccion_Residencia': DocumentIntelligence.get_field_value(invoice.fields, "DirecionResidencia"),
                 'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
                 'Valor_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "ValorUltimoPago"),
@@ -55,7 +54,6 @@ class DocumentIntelligence:
                 'Deuda': DocumentIntelligence.get_field_value(invoice.fields, "Deuda"),
                 'N° Contrato': DocumentIntelligence.get_field_value(invoice.fields, "#Contrato"),
                 'Mes_Facturaacion': DocumentIntelligence.get_field_value(invoice.fields, "MesFacturacion"),
-                'Numero_Factura': DocumentIntelligence.get_field_value(invoice.fields, "NumeroFactura"),
                 'Cupon_Pago': DocumentIntelligence.get_field_value(invoice.fields, "CuponPago")
             }
 

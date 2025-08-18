@@ -61,7 +61,7 @@ def get_invoive_details():
     if not id_invoice:
         return jsonify({"error": "Missing required data (invoice_detail_id)"}), 400
     try:
-        list_detail = invoices_service.list_detail_invoice(id_invoice)
+        list_detail = Invoices_service.list_detail_invoice(id_invoice)
         return jsonify({"message": "Factura encontrada", "Details_invoice": list_detail}), 200
     except Exception as e:
         pass
