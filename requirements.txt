@@ -1,2 +1,5 @@
 Flask==2.2.3
 Flask-SQLAlchemy==3.0.2
+azure-functions
+azure-storage-blob
+-e .

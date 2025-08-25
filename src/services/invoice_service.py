@@ -1,8 +1,8 @@
-from Models.invoicesModel import InvoicesModel
-from Models.invoicesDetailModel import InvoiceDetailsModels
-from services.recognizerService import DocumentIntelligence
-from services.invoice_details_service import DetailsDocumentIntelligence
-from database.conn import session
+from src.Models.invoicesModel import InvoicesModel
+from src.Models.invoicesDetailModel import InvoiceDetailsModels
+from src.services.recognizerService import DocumentIntelligence
+from src.services.invoice_details_service import DetailsDocumentIntelligence
+from src.database.conn import session
 import json
 
 class InvoiceService:

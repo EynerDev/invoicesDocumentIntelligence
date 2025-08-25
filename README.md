@@ -33,7 +33,7 @@ Asegúrate de que los usuarios tengan instalados los siguientes requisitos para 
 - Python 3.9+
 - Pip
 - Acceso a una cuenta de Azure y una subscripcion de azure 
-- Un archivo `.env` con las configuraciones necesarias (explicado más abajo)
+- Un archivo `.env.example` con las configuraciones necesarias (explicado más abajo)
 
 ## Instalación
 

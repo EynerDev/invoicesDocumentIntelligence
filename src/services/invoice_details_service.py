@@ -1,5 +1,5 @@
-from Models.invoicesDetailModel import InvoiceDetailsModels
-from database.conn import session
+from src.Models.invoicesDetailModel import InvoiceDetailsModels
+from src.database.conn import session
 
 class DetailsDocumentIntelligence:
     
