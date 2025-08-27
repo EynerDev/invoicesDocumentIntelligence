@@ -1,8 +1,7 @@
-from src.Models.invoicesModel import InvoicesModel
-from src.Models.invoicesDetailModel import InvoiceDetailsModels
-from src.services.recognizerService import DocumentIntelligence
-from src.services.invoice_details_service import DetailsDocumentIntelligence
-from src.database.conn import session
+from Models.invoicesModel import InvoicesModel
+from Models.invoicesDetailModel import InvoiceDetailsModels
+from services.invoice_details_service import DetailsDocumentIntelligence
+from database.conn import session
 import json
 
 class InvoiceService:
@@ -35,34 +34,33 @@ class InvoiceService:
             }
 
     @staticmethod
-    def agregar_factura(type_id, provider_id, path_storage, blob_sas,
-                        name_invoice):
+    def agregar_factura(type_id, provider_id, path_storage,
+                    name_invoice):
         try:
             # Crear la nueva factura, pasando los datos necesarios
-            ReconizerService = DocumentIntelligence()
-            InvoiceDetailsService = DetailsDocumentIntelligence()
+            # ReconizerService = DocumentIntelligence()
+            # InvoiceDetailsService = DetailsDocumentIntelligence()
 
             new_invoice = InvoicesModel(
                 type_id=type_id,
                 provider_id=provider_id,
                 path_storage=path_storage,
-                blob_sas=blob_sas,
                 name_invoice=name_invoice,
             )  # Asegúrate de que los campos coinciden con el modelo
             print(new_invoice.name_invoice)
             session.add(new_invoice)
             session.commit()
 
-            id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
-            result = ReconizerService.analyze_invoice(path_storage, id_invoice)
+            # id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
+            # result = ReconizerService.analyze_invoice(path_storage, id_invoice)
              
-            data = result["invoice_data"]
-            id = result["invoice_id"]
+            # data = result["invoice_data"]
+            # id = result["invoice_id"]
              
-            detalles = InvoiceDetailsService.agregar_detalle_factura(data, id)
+            # detalles = InvoiceDetailsService.agregar_detalle_factura(data, id)
             
-            print("esta es la data de la factura", result["invoice_data"])
-            print("este es el id de la factura", result["invoice_id"])
+            # print("esta es la data de la factura", result["invoice_data"])
+            # print("este es el id de la factura", result["invoice_id"])
 
             return {
                 "msg": "Factura cargada en la base de datos de manera exitosa",

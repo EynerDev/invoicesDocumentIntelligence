@@ -1,5 +1,5 @@
-from src.Models.providerModel import ProviderModel
-from src.database.conn import session
+from Models.providerModel import ProviderModel
+from database.conn import session
 
 class ProviderService:
     

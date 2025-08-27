@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify
-from src.services.storage_service import StorageService
-from src.services.invoice_service import InvoiceService
+from services.storage_service import StorageService
+from services.invoice_service import InvoiceService
 
 # Crear un Blueprint para las rutas de facturas
 factura_bp = Blueprint('factura', __name__)

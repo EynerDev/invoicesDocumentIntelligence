@@ -2,7 +2,7 @@ from azure.storage.blob import BlobServiceClient, BlobSasPermissions, generate_b
 from azure.core.exceptions import ResourceExistsError
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
-from src.services.invoice_service import InvoiceService
+from services.invoice_service import InvoiceService
 import os
 import base64
 import time
@@ -58,13 +58,8 @@ class StorageService:
             # Generar y devolver la URL con SAS
             account_name = self.blob_service_client.account_name
             print("Esta es la account_name: ", account_name)
-            blob_url, sas_token = self.generate_token_sas(
-                account_name,
-                blob_name
-                )
-
-            # Preparar los datos para registrar la factura en la base de datos
             
+            blob_url = f"https://{account_name}.blob.core.windows.net/{self.container_name}/{blob_name}"
 
             # Llamar al servicio de facturas para agregar la factura a la base de datos
             invoice_service = InvoiceService()
@@ -73,7 +68,6 @@ class StorageService:
                 provider_id=1,
                 path_storage=blob_url,
                 name_invoice=blob_name,
-                blob_sas=sas_token
                 )
 
             # Retornar la respuesta final
@@ -81,14 +75,13 @@ class StorageService:
                 "result": result,
                 "url_blob": blob_client.url,
                 "blob_url_sas": blob_url,
-                "blob_name" : blob_name,
-                "sas_token": sas_token
+                "blob_name": blob_name,
             }
 
         except Exception as e:
             raise Exception(f"Error al subir o procesar el archivo: {str(e)}")
 
-    def generate_token_sas(self, storage_account_name, blob_name):
+    def generate_token_sas(self, storage_account_name, container_name, blob_name):
         # Extraer el account key desde la cadena de conexión
         account_key = os.getenv("ACCOUNT_KEY")
         
@@ -98,7 +91,7 @@ class StorageService:
         # Generar el token SAS para un blob específico
         sas_token = generate_blob_sas(
             account_name=storage_account_name,
-            container_name=self.container_name,
+            container_name=container_name,
             blob_name=blob_name,
             account_key=account_key,
             permission=BlobSasPermissions(read=True),

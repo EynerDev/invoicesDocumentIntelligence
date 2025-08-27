@@ -1,5 +1,5 @@
 from sqlalchemy import Column, NVARCHAR, String, DateTime, Integer, BigInteger
-from src.database.conn import Base
+from database.conn import Base
 from sqlalchemy.sql.functions import current_timestamp
 
 
@@ -15,17 +15,15 @@ class InvoicesModel(Base):
     created_at = Column(DateTime, default=current_timestamp())
     updated_at = Column(DateTime, default=current_timestamp(),
                         onupdate=current_timestamp())
-    blob_sas = Column(String(500), nullable=False)
     name_invoice = Column(String(250), nullable=False)
     
     
-    def __init__(self, type_id,provider_id, path_storage, blob_sas, name_invoice):
+    def __init__(self, type_id, provider_id, path_storage, name_invoice):
         
         self.type_id = type_id
         self.provider_id = provider_id
         self.path_storage = path_storage
         self.active = 1  # Por defecto el valor es 1
-        self.blob_sas = blob_sas
         self.name_invoice = name_invoice 
     def __repr__(self):
         return {
@@ -34,6 +32,5 @@ class InvoicesModel(Base):
             "provider_id": self.provider_id,
             "path_storage": self.path_storage,
             "name_invoice": self.name_invoice,
-            "blob_sas": self.blob_sas,
             "active": self.active
         }
