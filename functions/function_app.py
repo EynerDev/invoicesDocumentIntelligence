@@ -22,9 +22,18 @@ def process_invoice(blob: func.InputStream):
     sas_url, sas_token  = storage_service.generate_token_sas(account_name, container_name,blob_name)
     
     blob_url = f"https://{account_name}.blob.core.windows.net/{container_name}/{blob_name}?{sas_token}"
+    try:
+        # Analizar la factura con Document Intelligence
+        result = document_intelligence.analyze_invoice(blob_url)
+        
+        # Cambiar el tier del blob a Cool después de procesar
+        storage_service.change_blob_tier(blob_name, "Archive")
+
+        data = result["invoice_data"]
+
+    except Exception as e:
+        raise Exception(f"Error al procesar la factura: {e}")
     
-    result = document_intelligence.analyze_invoice(blob_url)
-    data = result["invoice_data"]
     
     print(f"data: {data}")
     print(f"url {blob_url}")

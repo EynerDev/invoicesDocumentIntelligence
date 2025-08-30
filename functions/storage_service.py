@@ -1,4 +1,4 @@
-from azure.storage.blob import BlobServiceClient, BlobSasPermissions, generate_blob_sas
+from azure.storage.blob import BlobServiceClient, BlobSasPermissions, StandardBlobTier, generate_blob_sas
 from azure.core.exceptions import ResourceExistsError
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -22,6 +22,8 @@ class StorageService:
 
         # Nombre del contenedor
         self.container_name = "invoices"
+        
+
         
         # Crear o acceder al contenedor
         self.container_client = self.blob_service_client.get_container_client(self.container_name)
@@ -53,3 +55,21 @@ class StorageService:
         # Construir la URL completa del blob con el token SAS
         blob_url = f"https://{storage_account_name}.blob.core.windows.net/{self.container_name}/{blob_name}?{sas_token}"
         return blob_url, sas_token
+    
+    def change_blob_tier(self, blob_name, tier="Cool"):
+        # Crear el cliente del blob
+        blob_client = self.container_client.get_blob_client(blob_name)
+        
+        valid_tiers = {
+            "Hot": StandardBlobTier.Hot,
+            "Cool": StandardBlobTier.Cool,
+            "Archive": StandardBlobTier.Archive
+        }
+
+        if tier not in valid_tiers:
+            raise ValueError(f"Tier inválido: {tier}. Usa Hot, Cool o Archive.")
+
+        # Cambiar el tier
+        blob_client.set_standard_blob_tier(valid_tiers[tier])
+
+        print(f"El blob {blob_name} ahora está en tier: {tier}")
