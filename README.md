@@ -2,7 +2,7 @@
 Esta aplicación recibe archivos desde distintos clientes (web, móvil, etc.), los convierte a PDF o imagen, los almacena en Azure Blob Storage, registra la metadata en Azure SQL Database, procesa el documento con Document Intelligence y finalmente guarda los resultados en Azure Cosmos DB.
 
 
-![Arquitectura de la aplicacion](muestras/samples/Untitled-2025-09-16-0115.png)
+![Arquitectura de la aplicacion](samples/Untitled-2025-09-16-0115.png)
 ## Funciones principales:
 
 -  Carga de facturas y almacenamiento seguro en la nube
