@@ -26,6 +26,17 @@ Lista de las principales tecnologías o herramientas utilizadas en el proyecto:
 - dotenv para manejo de variables de entorno
 - Otros...
 
+
+flowchart TB
+  U[Users (Web / Móvil / Front)] -->|POST file (Base64)| API[API (App Service)]
+  API -->|Convierte a PDF/IMG| API
+  API -->|Sube via Python SDK| Blob[Azure Blob Storage]
+  API -->|Registra URL| SQL[Azure SQL Database]
+  Blob -->|BlobTrigger| Func[Azure Function (BlobTrigger)]
+  Func -->|Genera SAS + Llama| DI[Document Intelligence]
+  DI -->|JSON procesado| Cosmos[Azure Cosmos DB]
+
+
 ## Requisitos
 
 Asegúrate de que los usuarios tengan instalados los siguientes requisitos para ejecutar el proyecto:
