@@ -59,3 +59,30 @@ Esta aplicación recibe archivos de distintos clientes (web, móvil, etc.), los 
    ```bash
    git clone https://github.com/EynerDev/invoicesDocumentIntelligence.git
    cd invoicesDocumentIntelligence
+
+2. 🚀 Despliegue en Azure (ejemplo con CLI)
+   ```bash
+   # Crear grupo de recursos
+   az group create --name rg-facturas --location eastus
+   
+   # Crear cuenta de almacenamiento
+   az storage account create \
+     --name facturasstorage \
+     --resource-group rg-facturas \
+     --location eastus \
+     --sku Standard_LRS
+   
+   # Crear base de datos SQL
+   az sql server create \
+     --name sqlfacturaserver \
+     --resource-group rg-facturas \
+     --location eastus \
+     --admin-user adminuser \
+     --admin-password YourP@ssword123
+   
+   # Crear CosmosDB
+   az cosmosdb create \
+     --name facturascosmos \
+     --resource-group rg-facturas \
+     --kind MongoDB
+
