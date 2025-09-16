@@ -1,7 +1,7 @@
 # SISTEMA DE PROCESACIMIENTO DE FACTURAS CON INTELIGENCIA ARTIFICIAL
-Aplicación backend para la automatización del procesamiento de facturas utilizando inteligencia artificial de Azure.
-La API recibe facturas en PDF, las almacena en Azure Blob Storage, procesa su contenido con Azure Document Intelligence para extraer datos clave y los guarda en una base de datos SQL.
-Se expone una API para acceder y consultar la información procesada.
+Esta aplicación recibe archivos desde distintos clientes (web, móvil, etc.), los convierte a PDF o imagen, los almacena en Azure Blob Storage, registra la metadata en Azure SQL Database, procesa el documento con Document Intelligence y finalmente guarda los resultados en Azure Cosmos DB.
+
+
 
 ## Funciones principales:
 
@@ -26,15 +26,6 @@ Lista de las principales tecnologías o herramientas utilizadas en el proyecto:
 - dotenv para manejo de variables de entorno
 - Otros...
 
-
-flowchart TB
-  U[Users (Web / Móvil / Front)] -->|POST file (Base64)| API[API (App Service)]
-  API -->|Convierte a PDF/IMG| API
-  API -->|Sube via Python SDK| Blob[Azure Blob Storage]
-  API -->|Registra URL| SQL[Azure SQL Database]
-  Blob -->|BlobTrigger| Func[Azure Function (BlobTrigger)]
-  Func -->|Genera SAS + Llama| DI[Document Intelligence]
-  DI -->|JSON procesado| Cosmos[Azure Cosmos DB]
 
 
 ## Requisitos
