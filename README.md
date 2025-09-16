@@ -6,7 +6,7 @@ Esta aplicación recibe archivos de distintos clientes (web, móvil, etc.), los 
 
 ## 🏗 Arquitectura de la Aplicación
 
-![Arquitectura](samples/Untitled-2025-09-16-0115.png)
+![Arquitectura](samples/arquitecturaapp.png)
 
 ---
 
