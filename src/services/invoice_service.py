@@ -1,6 +1,7 @@
 from Models.invoicesModel import InvoicesModel
 from Models.invoicesDetailModel import InvoiceDetailsModels
 from services.invoice_details_service import DetailsDocumentIntelligence
+from services.recognizerService import DocumentIntelligence
 from database.conn import session
 import json
 
@@ -38,8 +39,8 @@ class InvoiceService:
                     name_invoice):
         try:
             # Crear la nueva factura, pasando los datos necesarios
-            # ReconizerService = DocumentIntelligence()
-            # InvoiceDetailsService = DetailsDocumentIntelligence()
+            ReconizerService = DocumentIntelligence()
+            InvoiceDetailsService = DetailsDocumentIntelligence()
 
             new_invoice = InvoicesModel(
                 type_id=type_id,
@@ -51,16 +52,16 @@ class InvoiceService:
             session.add(new_invoice)
             session.commit()
 
-            # id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
-            # result = ReconizerService.analyze_invoice(path_storage, id_invoice)
+            id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
+            result = ReconizerService.analyze_invoice(path_storage, id_invoice)
              
-            # data = result["invoice_data"]
-            # id = result["invoice_id"]
+            data = result["invoice_data"]
+            id = result["invoice_id"]
              
-            # detalles = InvoiceDetailsService.agregar_detalle_factura(data, id)
+            detalles = InvoiceDetailsService.agregar_detalle_factura(data, id)
             
-            # print("esta es la data de la factura", result["invoice_data"])
-            # print("este es el id de la factura", result["invoice_id"])
+            print("esta es la data de la factura", result["invoice_data"])
+            print("este es el id de la factura", result["invoice_id"])
 
             return {
                 "msg": "Factura cargada en la base de datos de manera exitosa",

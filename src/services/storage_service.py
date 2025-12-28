@@ -1,4 +1,4 @@
-from azure.storage.blob import BlobServiceClient, BlobSasPermissions, generate_blob_sas
+from azure.storage.blob import BlobServiceClient, BlobSasPermissions, StandardBlobTier , generate_blob_sas
 from azure.core.exceptions import ResourceExistsError
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
@@ -59,7 +59,11 @@ class StorageService:
             account_name = self.blob_service_client.account_name
             print("Esta es la account_name: ", account_name)
             
-            blob_url = f"https://{account_name}.blob.core.windows.net/{self.container_name}/{blob_name}"
+            blob_url, blob_sas = self.generate_token_sas(
+                storage_account_name=account_name,
+                container_name=self.container_name,
+                blob_name=blob_name
+            ) 
 
             # Llamar al servicio de facturas para agregar la factura a la base de datos
             invoice_service = InvoiceService()

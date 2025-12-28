@@ -20,10 +20,10 @@ class DocumentIntelligence:
         return str(field)
 
     @staticmethod
-    def analyze_invoice(path_url):
+    def analyze_invoice(path_url, id_invoice):
         endpoint = os.getenv("ENDPOINT_DOCUMENT_INTELLIGENCE")
         key = os.getenv("KEY_DOCUMENT_INTELLIGENCE")
-        modelID  = "ModelGasCaribe"
+        modelID  = "Model-Public-Services"
         if not endpoint or not key:
             raise ValueError(
                 "Debes configurar ENDPOINT_DOCUMENT_INTELLIGENCE y KEY_DOCUMENT_INTELLIGENCE en tu .env"
@@ -45,7 +45,6 @@ class DocumentIntelligence:
                 'Nit_proveedor': DocumentIntelligence.get_field_value(invoice.fields, "NitProveedor"),
                 'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
                 'Direccion_Residencia': DocumentIntelligence.get_field_value(invoice.fields, "DirecionResidencia"),
-                'Fecha_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaUltimoPago"),
                 'Valor_Ultimo_Pago': DocumentIntelligence.get_field_value(invoice.fields, "ValorUltimoPago"),
                 'Total_A_Pagar': DocumentIntelligence.get_field_value(invoice.fields, "Total_pagar"),
                 'Fecha_Limite_pago': DocumentIntelligence.get_field_value(invoice.fields, "FechaLimitePago"),
@@ -58,6 +57,6 @@ class DocumentIntelligence:
             }
 
         return {
-            "invoice_data": data
-            # "invoice_id": id_invoice
+            "invoice_data": data,
+            "invoice_id": id_invoice
         }

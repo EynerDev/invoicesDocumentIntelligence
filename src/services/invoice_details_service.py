@@ -11,7 +11,7 @@ class DetailsDocumentIntelligence:
                 'aaa': 2,
             }
 
-            proveedor = str(data.get("Proveedor", "")).lower()
+            proveedor = str(data.get("Proveedor")).lower()
             proveedor_id = doc_mapping.get(proveedor, 1)  # 🔹 default 1 si no existe
 
             # Sanitizar cupon_pago
