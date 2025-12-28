@@ -6,7 +6,7 @@ Esta aplicación recibe archivos de distintos clientes (web, móvil, etc.), los 
 
 ## 🏗 Arquitectura de la Aplicación
 
-![Arquitectura](samples/arquitecturaapp.png)
+![Arquitectura](samples/ChatGPT Image 28 dic 2025, 12_43_50 a.m..png)
 
 ---
 
