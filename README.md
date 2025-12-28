@@ -33,11 +33,10 @@ Esta aplicación recibe archivos de distintos clientes (web, móvil, etc.), los 
 
 ## 🛠 Tecnologías utilizadas
 
-- **Azure Blob Storage** (almacenamiento de archivos).  
-- **Azure Functions** (procesamiento asíncrono con triggers).  
+- **Azure Blob Storage** (almacenamiento de archivos).
+- **Azure Key Vault** (Almacenamiento de Secretos, Keys y Cadenas de conexion)
 - **Azure Document Intelligence** (servicios cognitivos para procesar facturas).  
 - **Azure SQL Database** (registro de metadatos).  
-- **Azure Cosmos DB** (almacenamiento de datos estructurados).  
 - **Azure App Service** (ejecución de la API en la nube).  
 - **Python 3.11** + **Flask** (backend API).  
 - **dotenv** (manejo de variables de entorno).  
