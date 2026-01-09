@@ -8,7 +8,7 @@ El objetivo principal es recibir documentos desde un frontend, almacenarlos de f
 
 ### 📌 Diagrama de Arquitectura
 
-![Arquitectura del Sistema](samples/ArquitecturaCloud.png)
+![Arquitectura del Sistema](/samples/ArquitecturaCloud.png)
 
 ---
 
