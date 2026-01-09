@@ -8,7 +8,9 @@ El proyecto está pensado para ser **replicable en cualquier suscripción de Azu
 
 ---
 
-## 🏗 Arquitectura de la Aplicación
+## 🏗 Arquitectura General
+
+La siguiente arquitectura describe el flujo completo del sistema y los servicios de Azure involucrados en el procesamiento de facturas.
 
 ![Arquitectura](samples/ArquitecturaCloud.png)
 
