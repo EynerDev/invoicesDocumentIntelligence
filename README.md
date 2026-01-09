@@ -12,7 +12,7 @@ El objetivo principal del proyecto es servir como **referencia técnica replicab
 
 La siguiente arquitectura describe el flujo completo del sistema y los servicios de Azure involucrados en el procesamiento de facturas.
 
-![Architecture Diagram](samples/arquitecturaCloud.png)
+![Architecture Diagram](samples/ArquitecturaCloud.png)
 
 ---
 
