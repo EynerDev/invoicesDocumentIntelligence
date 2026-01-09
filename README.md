@@ -1,6 +1,10 @@
-# 📑 Sistema de Procesamiento de Facturas con Inteligencia Artificial
+# Invoice Processing System with Azure Document Intelligence
 
-Esta aplicación recibe archivos de distintos clientes (web, móvil, etc.), los convierte a PDF o imagen, los almacena en **Azure Blob Storage**, registra los metadatos en **Azure SQL Database**, procesa el documento con **Azure Document Intelligence** y finalmente guarda los resultados en **Azure Cosmos DB**.
+Este proyecto es una **API backend** diseñada para la carga, almacenamiento y procesamiento automático de facturas utilizando **servicios de Microsoft Azure**.
+
+La solución permite recibir documentos en formato Base64, almacenarlos de forma segura en Azure Blob Storage y extraer información estructurada mediante **Azure Document Intelligence**, guardando la metadata resultante en una base de datos.
+
+El proyecto está pensado para ser **replicable en cualquier suscripción de Azure**, incluyendo documentación paso a paso para crear los recursos necesarios y configurar el entorno, sin depender de recursos activos del autor.
 
 ---
 
