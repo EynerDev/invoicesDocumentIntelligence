@@ -1,0 +1,56 @@
+```
+📁 invoices_documentIntelligence
+    📁 documents
+    📁 notebooks
+        ─ base64.ipynb
+        ─ test_conn.ipynb
+    📁 samples
+        ─ aire.pdf
+        ─ arquitecturaapp.png
+        ─ ArquitecturaCloud.png
+        ─ ChatGPT Image 28 dic 2025, 12_43_50 a.m..png
+        ─ gasaire.pdf
+        ─ Prueba1.jpeg
+        ─ prueba2.jpeg
+        ─ Untitled-2025-09-16-0115.png
+    📁 src
+        📁 controllers
+            📁 __pycache__
+                ─ invoices_controller.cpython-312.pyc
+                ─ provider_controller.cpython-312.pyc
+            ─ invoices_controller.py
+            ─ provider_controller.py
+        📁 database
+            📁 __pycache__
+                ─ conn.cpython-312.pyc
+            ─ conn_test.ipynb
+            ─ conn.py
+            ─ QuerySQLserver.sql
+        📁 models
+            📁 __pycache__
+                ─ invoicesDetailModel.cpython-312.pyc
+                ─ invoicesModel.cpython-312.pyc
+                ─ providerModel.cpython-312.pyc
+            ─ invoicesDetailModel.py
+            ─ invoicesModel.py
+            ─ providerModel.py
+            ─ typeInvoicesModel.py
+        📁 services
+            📁 __pycache__
+                ─ __init__.cpython-312.pyc
+                ─ invoice_details_service.cpython-312.pyc
+                ─ invoice_service.cpython-312.pyc
+                ─ provider_service.cpython-312.pyc
+                ─ recognizerService.cpython-312.pyc
+                ─ storage_service.cpython-312.pyc
+            ─ invoice_details_service.py
+            ─ invoice_service.py
+            ─ provider_service.py
+            ─ recognizerService.py
+            ─ storage_service.py
+            ─ type_invoice_service.py
+        ─ .gitignore
+        ─ app.py
+    ─ .env
+    ─ requirements.txt
+```
