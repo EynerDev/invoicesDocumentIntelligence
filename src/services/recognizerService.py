@@ -21,12 +21,12 @@ class DocumentIntelligence:
 
     @staticmethod
     def analyze_invoice(path_url, id_invoice):
-        endpoint = os.getenv("ENDPOINT_DOCUMENT_INTELLIGENCE")
-        key = os.getenv("KEY_DOCUMENT_INTELLIGENCE")
-        modelID  = "Model-Public-Services"
+        endpoint = os.getenv("DOCUMENT_INTELLIGENCE_ENDPOINT")
+        key = os.getenv("DOCUMENT_INTELLIGENCE_API_KEY")
+        modelID  = os.getenv("DOCUMENT_INTELLIGENCE_MODEL_ID")
         if not endpoint or not key:
             raise ValueError(
-                "Debes configurar ENDPOINT_DOCUMENT_INTELLIGENCE y KEY_DOCUMENT_INTELLIGENCE en tu .env"
+                "Debes configurar DOCUMENT_INTELLIGENCE_ENDPOINT y DOCUMENT_INTELLIGENCE_API_KEY en tu .env"
             )
 
         client = DocumentIntelligenceClient(
