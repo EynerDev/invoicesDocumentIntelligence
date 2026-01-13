@@ -35,10 +35,10 @@ az keyvault create \
 
 Los siguientes valores deben almacenarse en **Azure Key Vault**:
 
-- `HOST_DB` : El endpoint del servidor en azure
-- `USERNAME_DB` : el usario del servidor en azure
-- `PASSWORD_DB` : La contraseña del servidor en azure 
-- `DATABASE_NAME` : El nombre de la base de datos
+- `HOST-DB` : El endpoint del servidor en azure
+- `USERNAME-DB` : el usario del servidor en azure
+- `PASSWORD-DB` : La contraseña del servidor en azure 
+- `DATABASE-NAME` : El nombre de la base de datos
 - `KEY-STORAGE-ACCOUNT` : Endpoint de la Storage Account
 - `ACCOUNT-KEY` : La key de Storage Account
 - `DOCUMENT-INTELLIGENCE-ENDPOINT` : Endpoint de DocumentIntelligence
