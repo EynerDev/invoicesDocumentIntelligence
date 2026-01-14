@@ -1,4 +1,5 @@
-from Models.invoicesDetailModel import InvoiceDetailsModels
+from models.invoicesDetailModel import InvoiceDetailsModels
+from services.provider_service import ProviderService
 from database.conn import session
 
 class DetailsDocumentIntelligence:
@@ -6,13 +7,10 @@ class DetailsDocumentIntelligence:
     @staticmethod
     def agregar_detalle_factura(data, id_invoice):
         try:  
-            doc_mapping = {
-                'gases del caribe': 3,
-                'aaa': 2,
-            }
-
-            proveedor = str(data.get("Proveedor")).lower()
-            proveedor_id = doc_mapping.get(proveedor, 1)  # 🔹 default 1 si no existe
+            
+            proveedor = data.get("Proveedor")
+            nit = data.get("Nit_proveedor")
+            proveedor_id = ProviderService.get_or_create_provider(nit, proveedor)  # 🔹 default 1 si no existe
 
             # Sanitizar cupon_pago
             try:
