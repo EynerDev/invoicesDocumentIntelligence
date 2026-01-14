@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/dfd06933-e225-4e6a-8d0d-8d11b5e7c318/resourceGroups/rg-invoices-system/providers/Microsoft.Web/sites/invoice-api-eyner",
+    "appService.deploySubpath": "."
+}

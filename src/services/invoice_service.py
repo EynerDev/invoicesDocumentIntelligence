@@ -10,6 +10,7 @@ class InvoiceService:
     @staticmethod
     def obtener_todas_facturas():
         try:
+            
             # Obtener todas las facturas de la base de datos
             facturas = session.query(InvoicesModel).all()
 
@@ -35,23 +36,24 @@ class InvoiceService:
             }
 
     @staticmethod
-    def agregar_factura(type_id, provider_id, path_storage,
+    def agregar_factura(type_id, path_storage,
                     name_invoice):
         try:
+     
             # Crear la nueva factura, pasando los datos necesarios
             ReconizerService = DocumentIntelligence()
             InvoiceDetailsService = DetailsDocumentIntelligence()
 
             new_invoice = InvoicesModel(
                 type_id=type_id,
-                provider_id=provider_id,
                 path_storage=path_storage,
                 name_invoice=name_invoice,
             )  # Asegúrate de que los campos coinciden con el modelo
             print(new_invoice.name_invoice)
             session.add(new_invoice)
             session.commit()
-
+            session.refresh(new_invoice)
+            
             id_invoice = InvoiceService.getInvoiceNombre(name_invoice)
             result = ReconizerService.analyze_invoice(path_storage, id_invoice)
              
@@ -78,6 +80,7 @@ class InvoiceService:
     @staticmethod
     def getInvoiceNombre(name_invoice):
         try:
+         
             invoice = session.query(InvoicesModel).filter(
                 InvoicesModel.name_invoice == name_invoice,
                 InvoicesModel.active == 1
@@ -92,6 +95,7 @@ class InvoiceService:
     @staticmethod
     def list_detail_invoice(id_invoice):
         try:
+
             validate_invoice_id = InvoiceService.validate_invoice_active_id(id_invoice)
             if not validate_invoice_id:
                 raise AssertionError("¡ERROR! no fue encontrada una factura con ese ID")
@@ -99,7 +103,7 @@ class InvoiceService:
             facturas_details = session.query(InvoiceDetailsModels).filter(
                 InvoiceDetailsModels.id_invoice == id_invoice,
                 InvoiceDetailsModels.active == 1
-            ).all()
+            ).first()
             
             if not facturas_details:
                 return {
@@ -109,7 +113,7 @@ class InvoiceService:
             else:
                 return {
                     "message": "Informacion de Factura",
-                    "data": [factura.__repr__() for factura in facturas_details],
+                    "data": [facturas_details.__repr__()],
                     "statusCode": 200
                 }
 

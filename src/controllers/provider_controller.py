@@ -7,39 +7,27 @@ provider_bp = Blueprint('provider', __name__)
 provider_service = ProviderService()
 
 
-@provider_bp.route('/hola', methods=['GET'])
-def hola():
-    return jsonify({'message': 'Hola mundo'})
-
-
-@provider_bp.route('/get_invoices', methods=['GET'])
-def get_invoice():
+@provider_bp.route('/get_providers', methods=['GET'])
+def get_providers():
     
     try:
-        get_invoice_db = invoices_service.obtener_todas_facturas()
-        return jsonify({"message": "Facturas encontradas", "url": get_invoice_db}), 200
+        get_providers = provider_service.obtener_proveedores()
+        return jsonify({"message": "Proveedores encontrados", "data": get_providers}), 200
     except Exception as e:
-         return jsonify({"error": f"Error uploading file: {str(e)}"}), 500
+         return jsonify({"error": f"Error: {str(e)}"}), 500
 
-@provider_bp.route('/upload_invoice', methods=['POST'])
+@provider_bp.route('/create_providers', methods=['POST'])
 def upload_blob():
     # Recibir los datos JSON desde la solicitud
     data = request.json
 
-    # Obtener el archivo codificado en base64
-    file_data = data.get("file")
-
-    # Verificar si el archivo está presente
-    if not file_data:
-        return jsonify({"error": "Missing required data (file)"}), 400
-
     try:
         # Llamar al servicio para subir el archivo a Azure
-        file_url = storage_service.upload_file_to_azure(file_data)
+        new_provider = provider_service.create_provider(data)
         
-        return jsonify({"message": "File uploaded successfully", "url": file_url}), 200
+        return jsonify({"message": "Proveedor creado de forma exitosa ", "data": new_provider}), 200
     except Exception as e:
-        return jsonify({"error": f"Error uploading file: {str(e)}"}), 500
+        return jsonify({"error": f"Error al crear el proveedor: {str(e)}"}), 500
 
 @provider_bp.route('/get_blobs', methods=['GET'])
 def get_blobs():

@@ -1,8 +1,7 @@
 import os
-
 from flask import Flask
-from controllers.invoices_controller import factura_bp
-from controllers.provider_controller import provider_bp
+from src.controllers.invoices_controller import factura_bp
+from src.controllers.provider_controller import provider_bp
 
 # Crear la aplicación Flask
 app = Flask(__name__)

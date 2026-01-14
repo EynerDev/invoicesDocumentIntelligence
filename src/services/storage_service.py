@@ -14,7 +14,7 @@ load_dotenv()
 class StorageService:
     def __init__(self):
         # Usar la cadena de conexión de la cuenta de almacenamiento de Azure
-        self.connection_string = os.getenv("KEY-STORAGE-ACCOUNT")  # Asegúrate de que esta variable esté en tu .env
+        self.connection_string = os.getenv("KEY_STORAGE_ACCOUNT")  # Asegúrate de que esta variable esté en tu .env
         if not self.connection_string:
             raise ValueError("La cadena de conexión no está definida en el archivo .env")
 
@@ -69,7 +69,6 @@ class StorageService:
             invoice_service = InvoiceService()
             result = invoice_service.agregar_factura(
                 type_id=1,
-                provider_id=1,
                 path_storage=blob_url,
                 name_invoice=blob_name,
                 )

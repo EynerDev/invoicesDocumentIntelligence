@@ -65,4 +65,3 @@ def get_invoive_details():
         return jsonify({"message": "Factura encontrada", "Details_invoice": list_detail}), 200
     except Exception as e:
         pass
-    

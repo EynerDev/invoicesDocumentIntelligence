@@ -9,7 +9,6 @@ class InvoicesModel(Base):
 
     id = Column(Integer, nullable=False, primary_key=True )
     type_id = Column(Integer, nullable=True)
-    provider_id = Column(Integer, nullable=True)
     path_storage = Column(String(500), nullable=False)
     active = Column(Integer, nullable=True, default=1)
     created_at = Column(DateTime, default=current_timestamp())
@@ -18,10 +17,9 @@ class InvoicesModel(Base):
     name_invoice = Column(String(250), nullable=False)
     
     
-    def __init__(self, type_id, provider_id, path_storage, name_invoice):
+    def __init__(self, type_id,  path_storage, name_invoice):
         
         self.type_id = type_id
-        self.provider_id = provider_id
         self.path_storage = path_storage
         self.active = 1  # Por defecto el valor es 1
         self.name_invoice = name_invoice 
@@ -29,7 +27,6 @@ class InvoicesModel(Base):
         return {
             "id": self.id,
             "type_id": self.type_id,
-            "provider_id": self.provider_id,
             "path_storage": self.path_storage,
             "name_invoice": self.name_invoice,
             "active": self.active

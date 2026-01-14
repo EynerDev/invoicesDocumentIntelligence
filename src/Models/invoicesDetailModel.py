@@ -39,9 +39,8 @@ class InvoiceDetailsModels(Base):
         self.number_contract = data.get('number_contract')
         self.cupon_pago = data.get('cupon_pago')
         self.proveedor_id = data.get('proveedor_id')
-
-
-    def to_dict(self):
+        
+    def __repr__(self):
         return {
             "id": self.id,
             "id_invoice": self.id_invoice,
@@ -55,5 +54,6 @@ class InvoiceDetailsModels(Base):
             "total_invoice_month": self.total_invoices_month,
             "active": self.active,
             "N° Contrato": self.number_contract,
-            "Cupon Pago": self.cupon_pago
+            "Cupon Pago": self.cupon_pago,
+            "Provider_ID": self.proveedor_id
         }
