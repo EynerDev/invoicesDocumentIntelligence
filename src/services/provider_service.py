@@ -1,4 +1,4 @@
-from Models.providerModel import ProviderModel
+from models.providerModel import ProviderModel
 from database.conn import session
 import json
 from sqlalchemy import func

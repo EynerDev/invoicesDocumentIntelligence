@@ -32,6 +32,7 @@ class ProviderModel(Base):
         return {
             "id":self.id,
             "name": self.name,
+            "nit": self.nit,
             "email": self.email,
             "address": self.address,
             "number": self.number,

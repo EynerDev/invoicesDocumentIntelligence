@@ -2,6 +2,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import load_dotenv
+from urllib.parse import quote_plus
 import os
 
 # Cargar las variables de entorno desde un archivo .env
@@ -14,14 +15,17 @@ try:
     password = os.getenv("PASSWORD_DB")
     database = os.getenv("DATABASE_NAME")
     driver = "ODBC+Driver+18+for+SQL+Server"
+    
 
     # Asegurarse de que las variables esenciales están presentes
     if not all([
         host, user_name, password, database]):
         raise ValueError("Faltan valores de variables de entorno esenciales")
 
+    user = quote_plus(user_name)
+    pwd = quote_plus(password)
     # Construir el URI de conexión para SQL Server
-    URI = f"mssql+pyodbc://{user_name}:{password}@{host}/{database}?driver={driver}&Encrypt=no&TrustServerCertificate=yes"
+    URI = f"mssql+pyodbc://{user}:{pwd}@{host}/{database}?driver={driver}&Encrypt=no&TrustServerCertificate=yes"
 
 
     # Construir el URI de conexión para MySQL

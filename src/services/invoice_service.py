@@ -1,5 +1,5 @@
-from Models.invoicesModel import InvoicesModel
-from Models.invoicesDetailModel import InvoiceDetailsModels
+from models.invoicesModel import InvoicesModel
+from models.invoicesDetailModel import InvoiceDetailsModels
 from services.invoice_details_service import DetailsDocumentIntelligence
 from services.recognizerService import DocumentIntelligence
 from database.conn import session
